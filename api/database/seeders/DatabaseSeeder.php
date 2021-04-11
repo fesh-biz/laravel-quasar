@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'user',
             'password' => bcrypt('password')
         ]);
+
+        $this->call(PassportSeeder::class);
     }
 }
