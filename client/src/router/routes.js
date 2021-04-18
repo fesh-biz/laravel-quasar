@@ -1,10 +1,16 @@
 import AuthRoutes from './routes/auth'
+import PageRoutes from './routes/pages'
 
 const routes = [
   {
-    path: '/',
+    path: '/auth',
     component: () => import('layouts/MainLayout.vue'),
     children: AuthRoutes
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: PageRoutes
   },
 
   // Always leave this as last one,

@@ -6,5 +6,26 @@ export default [
       title: 'login'
     },
     component: () => import('pages/auth/Login')
+  },
+  {
+    path: 'register',
+    name: 'register',
+    meta: {
+      title: 'register'
+    },
+    component: () => import('pages/auth/Register')
+  },
+  {
+    path: 'forgot-password',
+    name: 'forgot_password',
+    component: () => import('pages/auth/ForgotPassword')
+  },
+  {
+    path: '/password/reset/:token',
+    name: 'reset_password',
+    meta: {
+      title: 'reset_password'
+    },
+    component: () => import('pages/auth/ResetPassword')
   }
 ]
