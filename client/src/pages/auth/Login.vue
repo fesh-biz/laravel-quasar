@@ -64,8 +64,8 @@ import { api } from 'boot/axios'
 import Me from 'src/models/user/Me'
 
 const formModel = {
-  email: '',
-  password: ''
+  email: 'user@app',
+  password: 'password'
 }
 
 export default {
@@ -93,16 +93,18 @@ export default {
         password: this.form.password
       }).then((res) => {
         this.formIsBusy = false
-        const bearer = 'Bearer ' + res.data.data.access_token
+        const bearer = 'Bearer ' + res.data.access_token
         api.defaults.headers.common.Authorization = bearer
         this.$q.cookies.set('bearer', bearer, { path: '/' })
-        this.$q.cookies.set('me', res.data.data.user, { path: '/' })
 
-        Me.create({
-          data: res.data.data.user
-        })
-
-        this.$router.push({ name: 'feed' })
+        this.$get('/me')
+          .then(res => {
+            Me.create({
+              data: res.data
+            })
+            this.$q.cookies.set('me', res.data, { path: '/' })
+            this.$router.push({ name: 'home' })
+          })
       })
         .catch((err) => {
           this.formIsBusy = false

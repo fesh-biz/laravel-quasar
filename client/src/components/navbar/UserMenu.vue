@@ -1,18 +1,10 @@
 <template>
   <q-btn-dropdown no-caps flat dense rounded icon="account_circle">
     <div class="row no-wrap q-pa-md">
-      <!--<div class="column">-->
-      <!--  <q-item :to="{ name: 'feed' }" clickable="">-->
-      <!--    <q-item-section>{{ $t('feed') }}</q-item-section>-->
-      <!--  </q-item>-->
-      <!--</div>-->
-
-      <!--<q-separator vertical inset class="q-mx-lg"/>-->
-
       <div class="column items-center">
         <user-avatar :src="me.avatar"/>
 
-        <div class="text-subtitle1 q-mt-md q-mb-xs">{{ `${me.first_name} ${me.last_name}` }}</div>
+        <div class="text-subtitle1 q-mt-md q-mb-xs">{{ me.name }}</div>
 
         <q-btn
           color="primary"
