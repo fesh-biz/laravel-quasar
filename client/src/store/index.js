@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexORM from '@vuex-orm/core'
+import database from 'src/models'
 
 // import example from './module-example'
 
@@ -19,6 +21,10 @@ export default function (/* { ssrContext } */) {
     modules: {
       // example
     },
+
+    plugins: [
+      VuexORM.install(database)
+    ],
 
     // enable strict mode (adds overhead!)
     // for dev mode only
