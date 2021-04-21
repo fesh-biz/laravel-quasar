@@ -47,7 +47,7 @@ export default {
           this.$q.cookies.remove('bearer')
           this.$q.cookies.remove('me')
           Me.deleteAll()
-          this.$router.push({ name: 'login' })
+          this.$router.push({ name: 'home' })
         })
     }
   }

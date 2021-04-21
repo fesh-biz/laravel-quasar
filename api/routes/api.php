@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->namespace('Api')->group(function () {
-    Route::get('/me', [UserController::class, 'me']);
-    Route::post('logout', [UserController::class, 'logout']);
+use App\Http\Controllers\Auth\AuthController;
+
+Route::middleware('auth:api')->namespace('Auth')->group(function () {
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });

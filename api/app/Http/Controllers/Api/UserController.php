@@ -10,15 +10,4 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function me(): Authenticatable
-    {
-        return auth()->user();
-    }
-
-    public function logout(): JsonResponse
-    {
-        auth()->user()->token()->delete();
-
-        return response()->json('Success');
-    }
 }
