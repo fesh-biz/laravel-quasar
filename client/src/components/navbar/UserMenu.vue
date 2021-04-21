@@ -47,7 +47,9 @@ export default {
           this.$q.cookies.remove('bearer')
           this.$q.cookies.remove('me')
           Me.deleteAll()
-          this.$router.push({ name: 'home' })
+          if (this.$route.name !== 'home') {
+            this.$router.push({ name: 'home' })
+          }
         })
     }
   }
