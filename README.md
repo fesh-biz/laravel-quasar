@@ -11,3 +11,7 @@ art migrate --seed
 cd ../client
 yarn
 ```
+
+3. in `/client` root run `yarn dev`
+default user:
+   - `user@app`, `password`
