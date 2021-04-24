@@ -9,6 +9,13 @@
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+
+  created () {
+    this.$get('/me')
+      .then(res => {
+        console.log(res)
+      })
+  }
 }
 </script>

@@ -2,6 +2,9 @@
 // so you can safely delete all default props below
 
 export default {
+  password_confirmation: 'Repeat your password',
+  name: 'Name',
+  registration: 'Registration',
   home_page: 'Home Page',
   logout: 'Logout',
   forgot_your_password: 'Forgot your password',

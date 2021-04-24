@@ -24,7 +24,7 @@ Vue.prototype.$get = function (url, params) {
         if (error.response && error.response.status === 401) {
           Cookies.remove('bearer')
           Cookies.remove('me')
-          window.location.href = '/login'
+          window.location.href = '/auth/login'
         }
 
         reject(error)
@@ -48,7 +48,7 @@ Vue.prototype.$post = function (url, data, options) {
         if (error.response && error.response.status === 401 && !isLoginUrl) {
           Cookies.remove('bearer')
           Cookies.remove('me')
-          window.location.href = '/login'
+          window.location.href = '/auth/login'
         }
 
         reject(error)
