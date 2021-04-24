@@ -28,6 +28,7 @@
             <q-input
               outlined=""
               dense=""
+              autocomplete="username"
               v-model="form.email"
               :label="$t('email')"
 
@@ -42,6 +43,7 @@
               outlined=""
               dense=""
               type="password"
+              autocomplete="new-password"
               v-model="form.password"
               :label="$t('password')"
 
@@ -56,6 +58,7 @@
               outlined=""
               dense=""
               type="password"
+              autocomplete="new-password"
               v-model="form.password_confirmation"
               :label="$t('password_confirmation')"
 
@@ -98,15 +101,6 @@ export default {
       form: Object.assign({}, formModel),
       validator: new Validator(formModel),
       isSubmitting: false
-    }
-  },
-
-  created () {
-    this.form = {
-      name: 'John Doe',
-      email: 'johndoe@email',
-      password: 123123,
-      password_confirmation: 123123
     }
   },
 

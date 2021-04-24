@@ -18,6 +18,7 @@
             <q-input
               outlined
               dense
+              autocomplete="username"
               v-model="form.email"
               :label="$t('email')"
               :error="!!validator.errors.email"
@@ -28,7 +29,7 @@
             <q-input
               outlined
               dense
-              autocomplete
+              autocomplete="current-password"
               type="password"
               v-model="form.password"
               :label="$t('password')"
@@ -64,8 +65,8 @@ import { api } from 'boot/axios'
 import Me from 'src/models/user/Me'
 
 const formModel = {
-  email: 'user@app',
-  password: 'password'
+  email: null,
+  password: null
 }
 
 export default {
