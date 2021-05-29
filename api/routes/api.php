@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\AuthController;
 
 
 Route::post('register', [AuthController::class, 'register']);
+Route::post('password-forgot', [AuthController::class, 'passwordForgot']);
 
 Route::middleware('auth:api')->namespace('Auth')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
