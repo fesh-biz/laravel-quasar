@@ -5,6 +5,7 @@ namespace Tests;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
@@ -16,6 +17,8 @@ abstract class DuskTestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Browser::$baseUrl = env('CLIENT_URL');
 
         if (!self::$dbSeeded) {
             $this->artisan('migrate:refresh');
@@ -48,8 +51,8 @@ abstract class DuskTestCase extends BaseTestCase
             '--window-size=1920,1080',
         ])->unless($this->hasHeadlessDisabled(), function ($items) {
             return $items->merge([
-                '--disable-gpu',
-                '--headless',
+                //'--disable-gpu',
+                //'--headless',
             ]);
         })->all());
 
