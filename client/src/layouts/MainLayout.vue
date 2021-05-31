@@ -2,10 +2,11 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-white text-grey">
       <q-toolbar>
-        <q-toolbar-title>
+        <q-toolbar-title class="flex">
           <q-item :to="{ name: 'home'}">
             <img width="24px" src="~assets/quasar-logo-full.svg" alt="">
           </q-item>
+          <q-item>Starter Kit</q-item>
         </q-toolbar-title>
 
         <div>

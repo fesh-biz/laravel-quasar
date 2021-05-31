@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "productName": "Starter kit",
   "author": "Felix Shelishkevich <feshbiz@gmail.com>",
   "private": true,
   "scripts": {
