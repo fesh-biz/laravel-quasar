@@ -54,6 +54,8 @@ class AuthController extends Controller
             'created_at' => now()
         ];
 
+        \DB::table('password_resets')->where('email', $email)->delete();
+
         \DB::table('password_resets')->insert($resetPasswordData);
 
         \Mail::to($email)->send(new PasswordResetLinkRequested($resetPasswordData));
