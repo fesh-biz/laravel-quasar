@@ -1,10 +1,10 @@
 <template>
-  <q-btn-dropdown no-caps flat dense rounded icon="account_circle">
+  <q-btn-dropdown dusk="um-user-menu" no-caps flat dense rounded icon="account_circle">
     <div class="row no-wrap q-pa-md">
       <div class="column items-center">
         <user-avatar :src="me.avatar"/>
 
-        <div class="text-subtitle1 q-mt-md q-mb-xs">{{ me.name }}</div>
+        <div dusk="um-user-name" class="text-subtitle1 q-mt-md q-mb-xs">{{ me.name }}</div>
 
         <q-btn
           color="primary"

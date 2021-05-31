@@ -11,6 +11,19 @@ abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected static bool $dbSeeded = false;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (!self::$dbSeeded) {
+            $this->artisan('migrate:refresh');
+            $this->artisan('db:seed');
+            self::$dbSeeded = true;
+        }
+    }
+
     /**
      * Prepare for Dusk test execution.
      *

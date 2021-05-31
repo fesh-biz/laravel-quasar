@@ -16,6 +16,7 @@
           <!-- login, password -->
           <q-card-section>
             <q-input
+              dusk="l-email-input"
               outlined
               dense
               autocomplete="username"
@@ -27,6 +28,7 @@
             />
 
             <q-input
+              dusk="l-password-input"
               outlined
               dense
               autocomplete="current-password"
@@ -38,8 +40,8 @@
               @input="validator.resetErrors()"
             />
 
-            <q-banner v-if="validator.errors.errorMessage" rounded inline-actions class="text-white bg-red">
-              {{ validator.errors.errorMessage }}
+            <q-banner dusk="l-error-message" v-if="validator.errors.error_message" rounded inline-actions class="text-white bg-red">
+              {{ validator.errors.error_message }}
             </q-banner>
 
             <q-item :to="{ name: 'forgot_password' }" clickable="">
@@ -51,7 +53,7 @@
 
           <!-- Buttons -->
           <q-card-actions class="q-pa-md">
-            <q-btn :loading="formIsBusy" :label="$t('submit')" type="submit" color="primary"/>
+            <q-btn dusk="l-login-button" :disable="formIsBusy" :loading="formIsBusy" :label="$t('submit')" type="submit" color="primary"/>
           </q-card-actions>
         </q-card>
       </q-form>
@@ -110,6 +112,8 @@ export default {
         .catch((err) => {
           this.formIsBusy = false
           this.validator.setErrors(err)
+
+          console.log(this.validator)
         })
     }
   }

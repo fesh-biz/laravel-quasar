@@ -1,3 +1,5 @@
+import { i18n } from 'boot/i18n'
+
 export default class Validator {
   constructor (formModel) {
     this.errors = {
@@ -19,6 +21,13 @@ export default class Validator {
 
   setErrors (res) {
     const validation = res.response.data.errors
+    if (!validation) {
+      if (res.response.data.error === 'invalid_grant') {
+        this.errors.error_message = i18n.messages[i18n.locale].wrong_credentials
+      }
+
+      return
+    }
 
     for (const field in validation) {
       if (validation.hasOwnProperty(field)) {
