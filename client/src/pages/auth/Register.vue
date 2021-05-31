@@ -10,11 +10,12 @@
 
         <!-- Form -->
         <q-card-section>
-          <q-form>
+          <q-form dusk="r-registration-form">
             <!-- name -->
             <q-input
               outlined=""
               dense=""
+              dusk="r-name-input"
               v-model="form.name"
               :label="$t('name')"
 
@@ -26,6 +27,7 @@
 
             <!-- email -->
             <q-input
+              dusk="r-email-input"
               outlined=""
               dense=""
               autocomplete="username"
@@ -40,6 +42,7 @@
 
             <!-- password -->
             <q-input
+              dusk="r-password-input"
               outlined=""
               dense=""
               type="password"
@@ -55,6 +58,7 @@
 
             <!-- password_confirmation -->
             <q-input
+              dusk="r-password-confirmation-input"
               outlined=""
               dense=""
               type="password"
@@ -74,7 +78,7 @@
 
         <!-- Buttons -->
         <q-card-section>
-          <q-btn color="primary" :loading="isSubmitting" :disable="isSubmitting" :label="$t('register')" @click="submit"/>
+          <q-btn dusk="r-registration-button" color="primary" :loading="isSubmitting" :disable="isSubmitting" :label="$t('register')" @click="submit"/>
         </q-card-section>
       </q-card>
     </div>
