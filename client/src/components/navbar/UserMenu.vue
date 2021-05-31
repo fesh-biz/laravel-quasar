@@ -7,6 +7,7 @@
         <div dusk="um-user-name" class="text-subtitle1 q-mt-md q-mb-xs">{{ me.name }}</div>
 
         <q-btn
+          dusk="um-logout-link"
           color="primary"
           :label="$t('logout')"
           @click="logout"

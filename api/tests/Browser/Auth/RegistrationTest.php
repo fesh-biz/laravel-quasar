@@ -4,6 +4,7 @@ namespace Tests\Browser\Auth;
 
 use App\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Extensions\ClearCacheExtension;
 use Tests\Browser\Extensions\RouteNamesExtension;
 use Tests\Browser\Extensions\UserAssertions;
 use Tests\DuskTestCase;

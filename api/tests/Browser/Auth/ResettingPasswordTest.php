@@ -4,13 +4,15 @@ namespace Tests\Browser\Auth;
 
 use App\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Extensions\AuthExtension;
+use Tests\Browser\Extensions\ClearCacheExtension;
 use Tests\Browser\Extensions\RouteNamesExtension;
 use Tests\Browser\Extensions\UserAssertions;
 use Tests\DuskTestCase;
 
 class ResettingPasswordTest extends DuskTestCase
 {
-    use RouteNamesExtension, UserAssertions;
+    use RouteNamesExtension, UserAssertions, AuthExtension, ClearCacheExtension;
 
     /**
      * @test
@@ -19,7 +21,7 @@ class ResettingPasswordTest extends DuskTestCase
      */
     public function userCanRequestResettingLink()
     {
-        $user = User::first();
+        $user = User::factory()->create();
 
         $this->browse(function (Browser $browser) use ($user) {
 
@@ -44,7 +46,7 @@ class ResettingPasswordTest extends DuskTestCase
      */
     public function userCanResetHisPassword()
     {
-        $user = User::first();
+        $user = User::factory()->create();
 
         $this->browse(function (Browser $browser) use ($user) {
             $this->resetPassword($browser, $user);
@@ -59,16 +61,21 @@ class ResettingPasswordTest extends DuskTestCase
      * @group auth
      * @group resettingPassword
      */
-    public function userCanLoginWithNewPassword()
+    public function userCanUseNewPassword()
     {
-        $user = User::first();
+        $this->browse(function (Browser $browser) {
+            $user = User::factory()->create();
+            $newPassword = 'newPassword';
 
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->visit($this->routeByName('forgotPassword'));
+            $this->resetPassword($browser, $user, $newPassword);
+            $browser = $this->logout($browser);
+            $this->loginAs($browser, $user->email, $newPassword);
+
+            $this->assertThatUserLoggedIn($browser, $user->name);
         });
     }
 
-    private function resetPassword(Browser $browser, User $user): Browser
+    private function resetPassword(Browser $browser, User $user, string $newPassword = 'newPassword'): Browser
     {
         $browser->visit($this->routeByName('forgotPassword'));
 
@@ -77,8 +84,8 @@ class ResettingPasswordTest extends DuskTestCase
 
         return $browser->visit($this->routeByName('resetPassword') . '/' . $token)
             ->waitFor('@rp-password-input')
-            ->type('@rp-password-input', 'new-password')
-            ->type('@rp-password-confirmation-input', 'new-password')
+            ->type('@rp-password-input', $newPassword)
+            ->type('@rp-password-confirmation-input', $newPassword)
             ->click('@rp-submit-button')
             ->waitUntilMissing('@rp-submit-button');
     }

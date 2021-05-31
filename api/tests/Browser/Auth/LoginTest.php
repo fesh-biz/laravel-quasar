@@ -2,14 +2,18 @@
 
 namespace Tests\Browser\Auth;
 
+use App\Models\User;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Extensions\AuthExtension;
+use Tests\Browser\Extensions\ClearCacheExtension;
 use Tests\Browser\Extensions\RouteNamesExtension;
 use Tests\Browser\Extensions\UserAssertions;
 use Tests\DuskTestCase;
 
 class LoginTest extends DuskTestCase
 {
-    use RouteNamesExtension, UserAssertions;
+    use RouteNamesExtension, UserAssertions, AuthExtension, ClearCacheExtension;
+
 
     /**
      * @test
@@ -38,19 +42,30 @@ class LoginTest extends DuskTestCase
     public function userCanLogin()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit($this->routeByName('home'))
-                ->click('@gm-guest-menu')
-                ->waitFor('@gm-login-link')
-                ->click('@gm-login-link')
-                ->waitFor('@l-email-input')
+            $user = User::factory()->create();
+            $browser->visit($this->routeByName('home'));
+            $browser = $this->loginAs($browser, $user->email, 'password');
 
-                ->type('@l-email-input', 'user@app')
-                ->type('@l-password-input', 'password')
-                ->press('@l-login-button')
+            $this->assertThatUserLoggedIn($browser, $user->name);
+        });
+    }
 
-                ->waitUntilMissing('@l-login-button');
+    /**
+     * @test
+     * @group Auth
+     * @group login
+     */
+    public function userCanLogout()
+    {
+        $this->browse(function (Browser $browser) {
+            $user = User::factory()->create();
 
-            $this->assertThatUserLoggedIn($browser, 'user');
+            $browser->visit($this->routeByName('home'));
+            $browser = $this->loginAs($browser, $user->email);
+
+            $browser = $this->logout($browser);
+
+            $browser->assertVisible('@gm-guest-menu');
         });
     }
 }
