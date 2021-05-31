@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Cookies } from 'quasar'
+import { routerInstance as router } from 'src/boot/router'
+import Me from 'src/models/user/Me'
 
 const api = axios.create({
   baseURL: process.env.API_URL
@@ -20,11 +22,12 @@ Vue.prototype.$get = function (url, params) {
       .then(function (response) {
         resolve(response)
       })
-      .catch(function (error) {
+      .catch(async function (error) {
         if (error.response && error.response.status === 401) {
+          await Me.deleteAll()
           Cookies.remove('bearer')
           Cookies.remove('me')
-          window.location.href = '/auth/login'
+          router.push({ name: 'login' })
         }
 
         reject(error)
@@ -38,7 +41,7 @@ Vue.prototype.$post = function (url, data, options) {
       .then((response) => {
         resolve(response)
       })
-      .catch(function (error) {
+      .catch(async function (error) {
         let isLoginUrl = false
         if (error.response && error.response.config && error.response.config.url) {
           const lastSegment = error.response.config.url.split('/').pop()
@@ -46,9 +49,10 @@ Vue.prototype.$post = function (url, data, options) {
         }
 
         if (error.response && error.response.status === 401 && !isLoginUrl) {
+          await Me.deleteAll()
           Cookies.remove('bearer')
           Cookies.remove('me')
-          window.location.href = '/auth/login'
+          router.push({ name: 'login' })
         }
 
         reject(error)
