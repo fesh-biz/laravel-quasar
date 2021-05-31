@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Mail\Auth\PasswordResetLinkRequested;
+use App\Models\User;
 use App\Repository\UserRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Laravel\Passport\Client;
 
 class AuthController extends Controller
 {
@@ -38,27 +38,7 @@ class AuthController extends Controller
 
         $user = $this->userRepo->createNewUser($userData);
 
-        $client = Client::find(2);
-
-        $response = \Http::asForm()->post(env('APP_URL') . '/api/token', [
-            'grant_type' => 'password',
-            'client_id' => $client->id,
-            'client_secret' => $client->secret,
-            'username' => $userData['email'],
-            'password' => $userData['password'],
-            'scope' => null,
-        ]);
-
-        $response = $response->object();
-
-        return response()->json([
-            'access_token' => $response->access_token,
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email
-            ]
-        ]);
+        return $this->authUser($user, $userData['password']);
     }
 
     public function passwordForgot(Request $r): JsonResponse
@@ -79,5 +59,29 @@ class AuthController extends Controller
         \Mail::to($email)->send(new PasswordResetLinkRequested($resetPasswordData));
 
         return response()->json(['status' => 'success']);
+    }
+
+    public function passwordReset(Request $r): JsonResponse
+    {
+        $input = $r->validate([
+            'token' => 'string',
+            'password' => 'required|min:6|max:255',
+            'password_confirmation' => 'same:password'
+        ]);
+
+        try {
+            $resetData = \DB::table('password_resets')->where('token', $input['token'])->first();
+            $user = User::whereEmail($resetData->email)->first();
+
+            $user->update([
+                'password' => bcrypt($input['password'])
+            ]);
+
+            \DB::table('password_resets')->where('token', $input['token'])->delete();
+
+            return $this->authUser($user, $input['password']);
+        }catch (\Exception $e) {
+            return $this->sendErrorMessage(trans('common.something_went_wrong'));
+        }
     }
 }

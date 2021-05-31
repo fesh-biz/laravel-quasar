@@ -2,6 +2,8 @@
 // so you can safely delete all default props below
 
 export default {
+  you_ll_be_redirected_in_3_seconds: 'You\'ll be redirected in 3 seconds',
+  your_password_has_been_successfully_reset: 'Your password has been successfully reset',
   password_confirmation: 'Repeat your password',
   name: 'Name',
   registration: 'Registration',

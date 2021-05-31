@@ -1,7 +1,7 @@
 export default class Validator {
   constructor (formModel) {
     this.errors = {
-      errorMessage: null
+      error_message: null
     }
 
     if (formModel) {
@@ -22,8 +22,8 @@ export default class Validator {
 
     for (const field in validation) {
       if (validation.hasOwnProperty(field)) {
-        if (field === 'message' || (field === 'errors' && typeof validation.errors === 'string')) {
-          this.errors.errorMessage = validation[field]
+        if (field === 'error_message') {
+          this.errors.error_message = validation[field]
           continue
         }
         this.errors[field] = validation[field][0]
@@ -35,6 +35,7 @@ export default class Validator {
     if (this.errors.hasOwnProperty(fieldName)) {
       this.errors[fieldName] = null
     }
+    this.errors.error_message = null
   }
 
   resetErrors () {

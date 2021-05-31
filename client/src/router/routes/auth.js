@@ -21,7 +21,7 @@ export default [
     component: () => import('pages/auth/ForgotPassword')
   },
   {
-    path: '/password/reset/:token',
+    path: '/auth/reset-password/:token',
     name: 'reset_password',
     meta: {
       title: 'reset_password'

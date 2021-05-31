@@ -15,6 +15,7 @@
 
           <!-- password -->
           <q-card-section>
+            <!-- password_confirmation -->
             <q-input
               outlined
               dense
@@ -27,6 +28,7 @@
               @input="validator.resetErrors()"
             />
 
+            <!-- password_confirmation -->
             <q-input
               outlined=""
               dense=""
@@ -35,18 +37,18 @@
               :label="$t('password_confirmation')"
               autocomplete
 
-              :error="!!validator.errors.password"
-              :error-message="validator.errors.password"
+              :error="!!validator.errors.password_confirmation"
+              :error-message="validator.errors.password_confirmation"
 
-              @input="validator.resetFieldError('password')"
+              @input="validator.resetFieldError('password_confirmation')"
             />
 
             <q-banner v-if="infoMessage" rounded inline-actions class="text-white bg-positive">
               {{ infoMessage }}
             </q-banner>
 
-            <q-banner v-if="validator.errors.errorMessage" rounded inline-actions class="text-white bg-red">
-              {{ validator.errors.errorMessage }}
+            <q-banner v-if="validator.errors.error_message" rounded inline-actions class="text-white bg-red">
+              {{ validator.errors.error_message }}
             </q-banner>
           </q-card-section>
 
@@ -64,6 +66,7 @@
 
 <script>
 import Validator from '../../plugins/Validator'
+import auth from 'src/plugins/auth'
 
 const formModel = {
   password: '',
@@ -84,24 +87,22 @@ export default {
   computed: {
     token () {
       return this.$router.currentRoute.params.token
-    },
-
-    email () {
-      return this.$router.currentRoute.query.email
     }
   },
 
   methods: {
     onSubmit () {
       this.formIsBusy = true
-      this.$post(`password-reset/${this.token}`, {
+      this.$post('password-reset', {
+        token: this.token,
         password: this.form.password,
         password_confirmation: this.form.password_confirmation
       }).then((res) => {
-        this.formIsBusy = false
+        this.infoMessage = this.$t('your_password_has_been_successfully_reset') + '. ' + this.$t('you_ll_be_redirected_in_3_seconds')
 
-        this.infoMessage = res.data.data.message
-        this.$router.push({ name: 'login' })
+        setTimeout(() => {
+          auth.loginAndRedirect(res.data.access_token, res.data.user)
+        }, 3000)
       })
         .catch((err) => {
           this.formIsBusy = false

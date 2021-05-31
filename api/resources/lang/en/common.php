@@ -7,4 +7,5 @@ return [
     'to_reset_your_password_click_on_button_bellow' => 'To reset your password, click on the button below',
     'reset_password' => 'Reset password',
     'or_copy_and_paste_url_into_your_browser' => 'Or copy and paste the URL into your browser',
+    'something_went_wrong' => 'Something went wrong'
 ];
