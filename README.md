@@ -1,6 +1,7 @@
 1. copy `/api/env.example` to `/api/.env`
-   - make sure you have correct values for .env.APP_URL, database section
+   - make sure you have correct values for `.env.APP_URL`, database section
 2. copy `/client/.quasar.env.json.example` to `/client/.quasar.env.json`
+   - make sure you had set same value for `development.API_URL` as `.env.APP_URL`
 
 ```
 cd /api
