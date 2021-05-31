@@ -4,13 +4,18 @@ namespace Tests\Browser\Auth;
 
 use Laravel\Dusk\Browser;
 use Tests\Browser\Extensions\RouteNamesExtension;
+use Tests\Browser\Extensions\UserAssertions;
 use Tests\DuskTestCase;
 
 class LoginTest extends DuskTestCase
 {
-    use RouteNamesExtension;
+    use RouteNamesExtension, UserAssertions;
 
-    /** @test **/
+    /**
+     * @test
+     * @group auth
+     * @group login
+     */
     public function userSeeWrongCredentials()
     {
         $this->browse(function (Browser $browser) {
@@ -25,7 +30,11 @@ class LoginTest extends DuskTestCase
         });
     }
 
-    /** @test **/
+    /**
+     * @test
+     * @group auth
+     * @group login
+     */
     public function userCanLogin()
     {
         $this->browse(function (Browser $browser) {
@@ -39,12 +48,9 @@ class LoginTest extends DuskTestCase
                 ->type('@l-password-input', 'password')
                 ->press('@l-login-button')
 
-                ->waitUntilMissing('@l-login-button')
+                ->waitUntilMissing('@l-login-button');
 
-                ->click('@um-user-menu')
-
-                ->waitFor('@um-user-name')
-                ->assertSeeIn('@um-user-name', 'user');
+            $this->assertThatUserLoggedIn($browser, 'user');
         });
     }
 }
