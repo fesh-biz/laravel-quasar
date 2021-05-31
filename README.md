@@ -17,5 +17,6 @@ default user:
    - `user@app`, `password`
    
 4. To run tests
+   - set values for `.env` mail section
    - set `.env.CLIENT_URL` provided by `yarn dev`
    - from `/api` run `php artisan dusk`
