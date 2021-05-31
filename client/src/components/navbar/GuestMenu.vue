@@ -1,14 +1,14 @@
 <template>
-  <q-btn-dropdown no-caps flat dense rounded icon="account_circle">
+  <q-btn-dropdown dusk="gm-guest-menu" no-caps flat dense rounded icon="account_circle">
     <div class="row no-wrap q-pa-md">
       <div class="column">
         <q-list dense>
           <!-- Guest -->
           <template>
-            <q-item exact clickable :to="{ name: 'login' }">
+            <q-item dusk="gm-login-link" exact clickable :to="{ name: 'login' }">
               <q-item-section>{{ $t('login') }}</q-item-section>
             </q-item>
-            <q-item exact clickable :to="{ name: 'register' }">
+            <q-item dusk="gm-registration-link" exact clickable :to="{ name: 'register' }">
               <q-item-section>{{ $t('register') }}</q-item-section>
             </q-item>
           </template>

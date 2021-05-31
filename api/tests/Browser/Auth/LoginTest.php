@@ -29,7 +29,12 @@ class LoginTest extends DuskTestCase
     public function userCanLogin()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit($this->routeByName('login'))
+            $browser->visit($this->routeByName('home'))
+                ->click('@gm-guest-menu')
+                ->waitFor('@gm-login-link')
+                ->click('@gm-login-link')
+                ->waitFor('@l-email-input')
+
                 ->type('@l-email-input', 'user@app')
                 ->type('@l-password-input', 'password')
                 ->press('@l-login-button')
