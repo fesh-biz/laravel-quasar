@@ -2,6 +2,7 @@
   <div class="row justify-center">
     <div class="col-sm-12 col-xs-12 col-md-6 col-lg-4 col-xl-4">
       <q-form
+        dusk="fp-forgot-password-form"
         @submit="onSubmit"
         class="q-gutter-md"
       >
@@ -16,6 +17,7 @@
           <!-- email -->
           <q-card-section>
             <q-input
+              dusk="fp-email-input"
               outlined
               dense
               v-model="form.email"
@@ -30,7 +32,7 @@
               {{ validator.errors.errorMessage }}
             </q-banner>
 
-            <q-banner v-if="infoMessage" rounded inline-actions class="text-white bg-positive q-mt-lg">
+            <q-banner dusk="fp-info-message" v-if="infoMessage" rounded inline-actions class="text-white bg-positive q-mt-lg">
               {{ infoMessage }}
             </q-banner>
           </q-card-section>
@@ -39,7 +41,7 @@
 
           <!-- Buttons -->
           <q-card-actions class="q-pa-md">
-            <q-btn :loading="formIsBusy" :label="$t('email_password_reset_link')" type="submit" color="primary"/>
+            <q-btn dusk="fp-submit-button" :loading="formIsBusy" :label="$t('email_password_reset_link')" type="submit" color="primary"/>
           </q-card-actions>
         </q-card>
       </q-form>
@@ -74,7 +76,7 @@ export default {
         password: this.form.password
       }).then((res) => {
         this.formIsBusy = false
-        this.infoMessage = res.data.data.message
+        this.infoMessage = res.data.message
       })
         .catch((err) => {
           this.formIsBusy = false

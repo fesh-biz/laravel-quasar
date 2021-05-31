@@ -15,8 +15,9 @@
 
           <!-- password -->
           <q-card-section>
-            <!-- password_confirmation -->
+            <!-- password -->
             <q-input
+              dusk="rp-password-input"
               outlined
               dense
               autocomplete
@@ -30,6 +31,7 @@
 
             <!-- password_confirmation -->
             <q-input
+              dusk="rp-password-confirmation-input"
               outlined=""
               dense=""
               type="password"
@@ -56,7 +58,7 @@
 
           <!-- Buttons -->
           <q-card-actions class="q-pa-md">
-            <q-btn :loading="formIsBusy" :label="$t('reset_password')" type="submit" color="primary"/>
+            <q-btn dusk="rp-submit-button" :disable="formIsBusy" :loading="formIsBusy" :label="$t('reset_password')" type="submit" color="primary"/>
           </q-card-actions>
         </q-card>
       </q-form>

@@ -44,7 +44,7 @@
               {{ validator.errors.error_message }}
             </q-banner>
 
-            <q-item :to="{ name: 'forgot_password' }" clickable="">
+            <q-item dusk="l-forgot-password-link" :to="{ name: 'forgot_password' }" clickable="">
               <q-item-section>{{ $t('forgot_your_password') }}?</q-item-section>
             </q-item>
           </q-card-section>

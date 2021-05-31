@@ -60,7 +60,7 @@ class AuthController extends Controller
 
         \Mail::to($email)->send(new PasswordResetLinkRequested($resetPasswordData));
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => trans('passwords.sent')]);
     }
 
     public function passwordReset(Request $r): JsonResponse
