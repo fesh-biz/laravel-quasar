@@ -26,7 +26,7 @@ class LoginTest extends DuskTestCase
             $browser->visit($this->routeByName('login'))
                 ->type('@l-email-input', 'user@app')
                 ->type('@l-password-input', 'wrong-password')
-                ->press('@l-login-button')
+                ->press('@l-login-form-submit')
 
                 ->waitFor('@l-error-message')
 
@@ -52,7 +52,7 @@ class LoginTest extends DuskTestCase
 
     /**
      * @test
-     * @group Auth
+     * @group auth
      * @group login
      */
     public function userCanLogout()
@@ -66,6 +66,20 @@ class LoginTest extends DuskTestCase
             $browser = $this->logout($browser);
 
             $browser->assertVisible('@gm-guest-menu');
+        });
+    }
+
+    /**
+     * @test
+     * @group auth
+     * @group login
+     */
+    public function userSeeErrorsIfFieldsAreEmpty() {
+        $this->browse(function (Browser $browser) {
+            $browser->visit($this->routeByName('login'))
+                ->waitFor('@l-login-form')
+                ->pressAndWaitFor('@l-login-form-submit')
+                ->assertSee(trans('auth.check_your_data'));
         });
     }
 }

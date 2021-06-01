@@ -2,6 +2,7 @@
   <div class="row justify-center">
     <div class="col-sm-12 col-xs-12 col-md-6 col-lg-4 col-xl-4">
       <q-form
+        dusk="l-login-form"
         @submit="onSubmit"
         class="q-gutter-md"
       >
@@ -40,7 +41,13 @@
               @input="validator.resetErrors()"
             />
 
-            <q-banner dusk="l-error-message" v-if="validator.errors.error_message" rounded inline-actions class="text-white bg-red">
+            <q-banner
+              dusk="l-error-message"
+              v-if="validator.errors.error_message"
+              rounded
+              inline-actions
+              class="text-white bg-red q-mb-md"
+            >
               {{ validator.errors.error_message }}
             </q-banner>
 
@@ -53,7 +60,7 @@
 
           <!-- Buttons -->
           <q-card-actions class="q-pa-md">
-            <q-btn dusk="l-login-button" :disable="formIsBusy" :loading="formIsBusy" :label="$t('submit')" type="submit" color="primary"/>
+            <q-btn dusk="l-login-form-submit" :disable="formIsBusy" :loading="formIsBusy" :label="$t('submit')" type="submit" color="primary"/>
           </q-card-actions>
         </q-card>
       </q-form>
@@ -112,8 +119,6 @@ export default {
         .catch((err) => {
           this.formIsBusy = false
           this.validator.setErrors(err)
-
-          console.log(this.validator)
         })
     }
   }

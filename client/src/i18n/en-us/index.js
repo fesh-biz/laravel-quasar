@@ -2,6 +2,7 @@
 // so you can safely delete all default props below
 
 export default {
+  check_your_data: 'Check your data',
   wrong_credentials: 'These credentials do not match our records',
   you_ll_be_redirected_in_3_seconds: 'You\'ll be redirected in 3 seconds',
   your_password_has_been_successfully_reset: 'Your password has been successfully reset',

@@ -22,9 +22,12 @@ export default class Validator {
   setErrors (res) {
     const validation = res.response.data.errors
     if (!validation) {
-      if (res.response.data.error === 'invalid_grant') {
-        this.errors.error_message = i18n.messages[i18n.locale].wrong_credentials
+      const errors = {
+        invalid_grant: i18n.messages[i18n.locale].wrong_credentials,
+        invalid_request: i18n.messages[i18n.locale].check_your_data
       }
+      const errorType = res.response.data.error
+      this.errors.error_message = errors[errorType] || null
 
       return
     }

@@ -20,8 +20,8 @@ trait AuthExtension
             ->waitFor('@l-email-input')
             ->type('@l-email-input', $email)
             ->type('@l-password-input', $password)
-            ->press('@l-login-button')
-            ->waitUntilMissing('@l-login-button')
+            ->press('@l-login-form-submit')
+            ->waitUntilMissing('@l-login-form-submit')
             ->waitFor('@um-user-menu');
     }
 

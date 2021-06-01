@@ -1,2 +1,1 @@
-- [] Forgot password process
-- [] Readme
+- [] To create manual login process

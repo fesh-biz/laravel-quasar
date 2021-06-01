@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'check_your_data' => 'Check your data',
     'wrong_credentials' => 'These credentials do not match our records',
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
