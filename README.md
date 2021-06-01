@@ -18,6 +18,8 @@ default user:
    - `user@app`, `password`
    
 4. To run tests
-   - set values for `.env` mail section
-   - set `.env.CLIENT_URL` provided by `yarn dev`
-   - from `/api` run `php artisan dusk`
+   - from `/api` run `php artisan dusk:install` this command will install `ChromeDriver binaries`
+      + remove `/api/tests/Browser/ExampleTest.php`
+   - set values for `/api/.env` mail section
+   - set `/api/.env.CLIENT_URL` provided by `yarn dev`
+   - from `/client` run `yarn dev` now from `/api` you can run `php artisan dusk`
