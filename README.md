@@ -5,6 +5,12 @@
 
 ```
 cd /api
+
+sudo find -type f -exec chmod 664 {} \;
+sudo find -type d -exec chmod 755 {} \;
+sudo chgrp -R www-data storage bootstrap/cache
+sudo chmod -R ug+rwx storage bootstrap/cache
+
 composer install
 php artisan key:generate
 php artisan migrate --seed
